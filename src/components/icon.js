@@ -1,0 +1,1 @@
+export const icon = (icon) => `https://amrutam-server.cyclic.app/assets/${icon}.svg`;
