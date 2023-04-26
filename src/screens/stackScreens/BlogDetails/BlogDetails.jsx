@@ -1,4 +1,6 @@
-import { View, Text, StyleSheet, Dimensions, Image, ScrollView } from 'react-native';
+import { useState } from 'react';
+
+import { View, Text, StyleSheet, Dimensions, Image, ScrollView, FlatList } from 'react-native';
 
 //Color
 import color from '../../../color';
@@ -15,14 +17,10 @@ const { height, width } = Dimensions.get('screen');
 export default BlogDetails = () => {
 
     const route = useRoute();
-    const item = route.params.data;
+    const blog = route.params.data;
 
-    const date = new Date(item.published_at);
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options).replace(/(\d+)(st|nd|rd|th)/, '$1');
-
-
-    console.log(item.body_html)
+    const date = new Date(blog.published_at);
+    const formattedDate = date.toLocaleDateString('en-gb', { day: 'numeric', month: 'short', year: 'numeric' } );
 
     return (
 
@@ -30,25 +28,25 @@ export default BlogDetails = () => {
 
             <HeaderComponent showTitle={true} title={"Amrutam Blog"} showUserProfile={true} />
 
-            <ScrollView>
+            <ScrollView style={styles.majorContainer}>
 
                 {
-                    item.hasOwnProperty("image") &&
+                    blog.hasOwnProperty("image") &&
 
                     <Image 
-                        source={{ uri : item.image.src }}
+                        source={{ uri : blog.image.src }}
                         style={styles.img}
                     />
                 }
 
-                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.title}>{blog.title}</Text>
 
                 <View style={styles.rowContainer}>
-                    <Text style={styles.author}>{item.author}</Text>
+                    <Text style={styles.author}>{blog.author}</Text>
                     <Text style={styles.date}>{formattedDate}</Text>
                 </View>
 
-                <HTML source={{ html: item.body_html }} tagsStyles={tagsStyles} contentWidth={width * 0.92} />
+                <HTML source={{ html: blog.body_html }} tagsStyles={tagsStyles} contentWidth={width * 0.92} />
 
             </ScrollView>
 
@@ -59,6 +57,7 @@ export default BlogDetails = () => {
 }
 
 const tagsStyles = {
+
     p: {
         color: color.black,
         fontSize: 16,
@@ -90,6 +89,10 @@ const styles = StyleSheet.create({
         width,
         paddingHorizontal : '4%',
         paddingTop : 20
+    },
+
+    majorContainer : {
+        height : '100%',
     },
 
     img : {

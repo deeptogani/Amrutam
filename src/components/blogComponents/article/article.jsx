@@ -9,8 +9,7 @@ const { width } = Dimensions.get('screen');
 export default Article = (props) => {
 
     const date = new Date(props.data.published_at);
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options).replace(/(\d+)(st|nd|rd|th)/, '$1');
+    const formattedDate = date.toLocaleDateString('en-gb', { day: 'numeric', month: 'short', year: 'numeric' } );
 
     return (
 

@@ -7,6 +7,7 @@ import color from "../../../color";
 
 //Components
 import HeaderComponent from "../../../components/headerComponent/headerComponent";
+import Card from "../../../components/blogComponents/card/card";
 import Category from "../../../components/blogComponents/category/category";
 import Article from "../../../components/blogComponents/article/article";
 
@@ -19,6 +20,7 @@ export default HomeScreen = () => {
     const [ blogData, setBlogData ] = useState([]);
     const [ blogCategories, setBlogCategories ] = useState([]);
     const [ displayData, setDisplayData ] = useState([]);
+    const [ recentBlogs, setRecentBlogs ] = useState([]);
 
     const [ category, setCategory ] = useState("");
 
@@ -60,13 +62,16 @@ export default HomeScreen = () => {
     const getBlogCategories = async () => {
 
         var temp = [];
+        var tempBlogs = [];
 
         await blogData.map(blog => {
             temp.push(blog['blog_title'])
+            tempBlogs.push(blog['articles'][1])
         })
 
         setBlogCategories(temp);
         setDisplayData(blogData[0]['articles'])
+        setRecentBlogs(tempBlogs);
 
     }
 
@@ -93,6 +98,24 @@ export default HomeScreen = () => {
             <View style={styles.headerContainer}>
                 <HeaderComponent showTitle={true} title={"Amrutam Blog"} showUserProfile={true} />
 
+                <View style={styles.containers}>
+                    <FlatList 
+                        style={styles.listContainer}
+                        data={recentBlogs}
+                        key={(item, index) => item['id']}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}
+                        renderItem={({ item, index }) => (
+
+                            <Card 
+                                blog={item}
+                                index={index}
+                            />
+
+                        )}
+                    />
+                </View>
+
                 <FlatList 
                     style={styles.listContainer}
                     data={blogCategories}
@@ -116,14 +139,14 @@ export default HomeScreen = () => {
                     data={displayData}
                     key={(item) => item.id}
                     showsVerticalScrollIndicator={false}
-                    renderItem={({ item }) => (
+                    renderItem={({ item, index }) => (
 
                         <TouchableOpacity style={styles.card} activeOpacity={0.8} onPress={() => {
 
                             navigation.navigate("BlogDetails", { data : item })
 
                         }}>
-                            <Article data={item} />
+                            <Article data={item} index={index} />
                         </TouchableOpacity>
 
                         
@@ -150,8 +173,12 @@ const styles = StyleSheet.create({
         paddingHorizontal : '4%'
     },
 
+    containers : {
+        paddingTop : 10
+    },
+
     listContainer : {
-        marginTop : 20
+        marginTop : 10
     },
 
     card : {

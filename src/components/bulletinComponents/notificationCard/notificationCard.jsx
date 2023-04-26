@@ -13,7 +13,7 @@ export default notificationCard = ({ item }, index) => {
 
     return (
 
-        <View style={[styles.cardContainer, index == notifications.length ? { marginBottom : 100 } : null ]}>
+        <View style={styles.cardContainer}>
 
             <View style={styles.iconContainer}>
                 <SvgUri uri={icon(item.icon)} height={40} width={40} color={color.primary1} />
