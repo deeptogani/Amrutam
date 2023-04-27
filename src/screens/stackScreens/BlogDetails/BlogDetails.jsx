@@ -10,6 +10,8 @@ import HeaderComponent from '../../../components/headerComponent/headerComponent
 
 import { useRoute } from '@react-navigation/native';
 
+import moment from 'moment';
+
 import HTML from 'react-native-render-html';
 
 const { height, width } = Dimensions.get('screen');
@@ -18,9 +20,7 @@ export default BlogDetails = () => {
 
     const route = useRoute();
     const blog = route.params.data;
-
-    const date = new Date(blog.published_at);
-    const formattedDate = date.toLocaleDateString('en-gb', { day: 'numeric', month: 'short', year: 'numeric' } );
+    const formattedDate = moment(blog.published_at).utcOffset('+05:30').format('D MMM YYYY');
 
     return (
 
@@ -79,6 +79,10 @@ const tagsStyles = {
         color: color.black,
         textDecoration: 'none',
         textDecorationStyle: 'none'
+    },
+
+    body: {
+        paddingBottom : 100
     }
 }
 

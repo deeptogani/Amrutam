@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 //Color
 import color from '../../../color';
@@ -7,13 +7,13 @@ import color from '../../../color';
 import { SvgUri } from 'react-native-svg';
 import { icon } from '../../icon';
 
-import { notifications } from '../../../dummydata/notifications';
+import moment from 'moment/moment';
 
-export default notificationCard = ({ item }, index) => {
+export default notificationCard = ({ item }) => {
 
     return (
 
-        <View style={styles.cardContainer}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.cardContainer}>
 
             <View style={styles.iconContainer}>
                 <SvgUri uri={icon(item.icon)} height={40} width={40} color={color.primary1} />
@@ -27,7 +27,7 @@ export default notificationCard = ({ item }, index) => {
 
             </View>
 
-        </View>
+        </TouchableOpacity>
 
     )
 
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     text : {
         color : color.black,
         fontSize : 12,
-        marginTop : 10,
         lineHeight : 16,
     },
 

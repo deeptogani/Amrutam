@@ -4,12 +4,13 @@ import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 //color
 import color from '../../../color';
 
+import moment from 'moment/moment';
+
 const { width } = Dimensions.get('screen');
 
 export default Article = (props) => {
 
-    const date = new Date(props.data.published_at);
-    const formattedDate = date.toLocaleDateString('en-gb', { day: 'numeric', month: 'short', year: 'numeric' } );
+    const formattedDate = moment(props.data.published_at).utcOffset('+05:30').format('D MMM YYYY');
 
     return (
 

@@ -11,11 +11,15 @@ import Card from "../../../components/blogComponents/card/card";
 import Category from "../../../components/blogComponents/category/category";
 import Article from "../../../components/blogComponents/article/article";
 
+import Lottie from 'lottie-react-native';
+
 import { useNavigation } from "@react-navigation/native";
 
 import axios from "axios";
 
 export default HomeScreen = () => {
+
+    const [isLoading, setIsLoading] = useState(true);
 
     const [ blogData, setBlogData ] = useState([]);
     const [ blogCategories, setBlogCategories ] = useState([]);
@@ -72,6 +76,7 @@ export default HomeScreen = () => {
         setBlogCategories(temp);
         setDisplayData(blogData[0]['articles'])
         setRecentBlogs(tempBlogs);
+        setIsLoading(false);
 
     }
 
@@ -89,6 +94,20 @@ export default HomeScreen = () => {
                 setDisplayData(blog['articles'])
             }
         })
+    }
+
+    if(isLoading){
+
+        return (
+
+            <View style={styles.screen}>
+
+                <Lottie source={require('../../../../assets/animations/loading.json')} autoPlay loop />
+
+            </View>
+
+        )
+
     }
 
     return (
