@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { View, StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import { View, StyleSheet, FlatList, TouchableOpacity, Text } from "react-native";
 
 //Colors
 import color from "../../../color";
@@ -116,31 +116,33 @@ export default HomeScreen = () => {
 
             <View style={styles.headerContainer}>
                 <HeaderComponent showTitle={true} title={"Amrutam Blog"} showUserProfile={true} />
+            </View>
 
-                <View style={styles.containers}>
-                    <FlatList 
-                        style={styles.listContainer}
-                        data={recentBlogs}
-                        key={(item, index) => item['id']}
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        renderItem={({ item, index }) => (
-
-                            <Card 
-                                blog={item}
-                                index={index}
-                            />
-
-                        )}
-                    />
-                </View>
-
+            <View style={styles.containers}>
                 <FlatList 
-                    style={styles.listContainer}
+                    data={recentBlogs}
+                    key={(item) => item['id']}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+
+                        <Card 
+                            blog={item}
+                            index={index}
+                            numberOfBlogs={recentBlogs.length}
+                        />
+
+                    )}
+                />
+            </View>
+
+            <View style={styles.containers}>
+                <FlatList 
                     data={blogCategories}
                     key={(item, index) => index}
                     horizontal
                     showsHorizontalScrollIndicator={false}
+
                     renderItem={({ item }) => (
 
                         <Category 
@@ -152,9 +154,11 @@ export default HomeScreen = () => {
 
                     )}
                 />
+            </View>
 
+            <View>
+            
                 <FlatList 
-                    style={styles.listContainer}
                     data={displayData}
                     key={(item) => item.id}
                     showsVerticalScrollIndicator={false}
@@ -168,12 +172,17 @@ export default HomeScreen = () => {
                             <Article data={item} index={index} />
                         </TouchableOpacity>
 
-                        
-
                     )}
+                    
                 />
-                
+
+                <TouchableOpacity style={styles.btn} onPress={increaseBlogs}>
+                    <Text style={styles.showText}>Show More</Text>
+                </TouchableOpacity>
+
             </View>
+                
+            
 
         </View>
 
@@ -197,11 +206,27 @@ const styles = StyleSheet.create({
     },
 
     listContainer : {
-        marginTop : 10
     },
 
     card : {
         backgroundColor : color.background
+    },
+
+    btn : {
+        height : 50,
+        width : 150,
+        elevation : 6,
+        borderRadius : 40,
+        backgroundColor : color.background,
+        marginTop : 20,
+        alignSelf : 'center',
+        justifyContent : 'center'
+    },
+
+    showText : {
+        color : color.black,
+        fontWeight : 'bold',
+        textAlign : 'center'
     }
 
 })
