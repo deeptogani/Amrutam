@@ -48,7 +48,7 @@ export default Article = (props) => {
 const styles = StyleSheet.create({
 
     card : {
-        height : 140,
+        height : 130,
         width : '98%',
         borderRadius : 8,
         backgroundColor : color.background,

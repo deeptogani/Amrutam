@@ -11,9 +11,11 @@ export default Card = ( props ) => {
 
     const navigation = useNavigation();
 
+    console.log(props.numberOfBlogs)
+
     return (
 
-        <View style={[styles.spaceContainer, { marginLeft : props.index === 0 ? 0 : 10}]} >
+        <View style={[styles.spaceContainer, { marginLeft : props.index === 0 ? 5 : 10}, { marginRight : props.index === (props.numberOfBlogs-1) ? 10 : 0}]} >
             <TouchableOpacity style={styles.container} activeOpacity={0.8} onPress={() => {
 
                 navigation.navigate("BlogDetails", { data : props.blog })
@@ -42,22 +44,25 @@ export default Card = ( props ) => {
 
 const styles = StyleSheet.create({
 
-    container : {
+    spaceContainer : {
         height : height*0.29,
+        width : width*0.45,
+    },
+
+    container : {
+        height : height*0.28,
         width : width*0.45,
         borderRadius : 8,
         elevation : 6,
-        backgroundColor : color.background
-    },
-
-    spaceContainer : {
-        height : height*0.3,
-        width : width*0.45,
+        backgroundColor : color.background,
+        borderRadius : 8
     },
 
     img : {
-        height : height*0.2,
-        width : '100%'
+        height : height*0.18,
+        width : '100%',
+        borderTopLeftRadius : 8,
+        borderTopRightRadius : 8
     },
 
     title : {
