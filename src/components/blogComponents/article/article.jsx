@@ -1,4 +1,3 @@
-
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 
 //color
@@ -14,7 +13,7 @@ export default Article = (props) => {
 
     return (
 
-        <View style={styles.card}>
+        <View style={[styles.card, {marginBottom : props.index === (props.numberOfBlogs-1) ? 20 : 10 } ]}>
 
             {
                 props.data.hasOwnProperty("image") ? (
@@ -53,8 +52,8 @@ const styles = StyleSheet.create({
         borderRadius : 8,
         backgroundColor : color.background,
         flexDirection : 'row',
-        marginBottom : 20,
-        elevation : 6
+        elevation : 6,
+        alignSelf : 'center'
     },
 
     img : {

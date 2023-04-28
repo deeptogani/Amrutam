@@ -23,6 +23,10 @@ export default HomeScreen = () => {
 
     const [ blogData, setBlogData ] = useState([]);
     const [ blogCategories, setBlogCategories ] = useState([]);
+
+    const [ allData, setAllData ] = useState([]);
+    const [ visibleItems, setVisibleItems ] = useState(2);
+
     const [ displayData, setDisplayData ] = useState([]);
     const [ recentBlogs, setRecentBlogs ] = useState([]);
 
@@ -52,6 +56,20 @@ export default HomeScreen = () => {
 
     }, [blogCategories])
 
+    useEffect(() => {
+
+        if(allData.length != 0){
+            var temp = [];
+            var count = 0;
+            while(count < visibleItems){
+                temp.push(allData[count])
+                count++
+            }
+            setDisplayData(temp);
+        }
+
+    }, [allData, visibleItems])
+
     const getBlogData = async () => {
 
         await axios.get("https://amrutam-server.cyclic.app/getBlogs").then((response) => {
@@ -74,7 +92,8 @@ export default HomeScreen = () => {
         })
 
         setBlogCategories(temp);
-        setDisplayData(blogData[0]['articles'])
+        setAllData(blogData[0]['articles'])
+        //setDisplayData(blogData[0]['articles'])
         setRecentBlogs(tempBlogs);
         setIsLoading(false);
 
@@ -91,9 +110,14 @@ export default HomeScreen = () => {
     const updateList = (selectedCategory) => {
         blogData.map(blog => {
             if(blog['blog_title'] === selectedCategory){
-                setDisplayData(blog['articles'])
+                setAllData(blog['articles'])
+                setVisibleItems(2)
             }
         })
+    }
+
+    const increaseBlogs = () => {
+        setVisibleItems(visibleItems + 5)
     }
 
     if(isLoading){
@@ -169,7 +193,7 @@ export default HomeScreen = () => {
                             navigation.navigate("BlogDetails", { data : item })
 
                         }}>
-                            <Article data={item} index={index} />
+                            <Article data={item} index={index} numberOfBlogs={displayData.length} />
                         </TouchableOpacity>
 
                     )}
@@ -209,7 +233,8 @@ const styles = StyleSheet.create({
     },
 
     card : {
-        backgroundColor : color.background
+        backgroundColor : color.background,
+        marginHorizontal : '4%'
     },
 
     btn : {
@@ -218,7 +243,6 @@ const styles = StyleSheet.create({
         elevation : 6,
         borderRadius : 40,
         backgroundColor : color.background,
-        marginTop : 20,
         alignSelf : 'center',
         justifyContent : 'center'
     },
