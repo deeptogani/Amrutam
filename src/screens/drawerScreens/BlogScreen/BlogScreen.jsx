@@ -30,6 +30,8 @@ export default HomeScreen = () => {
     const [ displayData, setDisplayData ] = useState([]);
     const [ recentBlogs, setRecentBlogs ] = useState([]);
 
+    const [ isMore, setIsMore ] = useState(true);
+
     const [ category, setCategory ] = useState("");
 
     const navigation = useNavigation();
@@ -68,6 +70,10 @@ export default HomeScreen = () => {
             setDisplayData(temp);
         }
 
+        if(visibleItems === allData.length){
+            setIsMore(false);
+        }
+
     }, [allData, visibleItems])
 
     const getBlogData = async () => {
@@ -93,13 +99,14 @@ export default HomeScreen = () => {
 
         setBlogCategories(temp);
         setAllData(blogData[0]['articles'])
-        //setDisplayData(blogData[0]['articles'])
         setRecentBlogs(tempBlogs);
         setIsLoading(false);
 
     }
 
     const changeCategory = (selectedCategory) => {
+
+        setIsMore(true);
 
         setCategory(selectedCategory);
         
@@ -117,7 +124,13 @@ export default HomeScreen = () => {
     }
 
     const increaseBlogs = () => {
-        setVisibleItems(visibleItems + 5)
+        if((allData.length - visibleItems) >= 5){
+            setIsMore(true);
+            setVisibleItems(visibleItems + 5)
+        }else{
+            setVisibleItems(visibleItems + (allData.length - visibleItems));
+        } 
+        
     }
 
     if(isLoading){
@@ -185,6 +198,7 @@ export default HomeScreen = () => {
                 <FlatList 
                     data={displayData}
                     key={(item) => item.id}
+                    style={styles.articleContainer}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => (
 
@@ -200,9 +214,11 @@ export default HomeScreen = () => {
                     
                 />
 
-                <TouchableOpacity style={styles.btn} onPress={increaseBlogs}>
-                    <Text style={styles.showText}>Show More</Text>
-                </TouchableOpacity>
+                {isMore &&
+                    <TouchableOpacity style={styles.btn} onPress={increaseBlogs}>
+                        <Text style={styles.showText}>Show More</Text>
+                    </TouchableOpacity>
+                }
 
             </View>
                 
@@ -229,7 +245,8 @@ const styles = StyleSheet.create({
         paddingTop : 10
     },
 
-    listContainer : {
+    articleContainer : {
+        height : '35%'
     },
 
     card : {

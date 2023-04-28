@@ -11,8 +11,6 @@ export default Card = ( props ) => {
 
     const navigation = useNavigation();
 
-    console.log(props.numberOfBlogs)
-
     return (
 
         <View style={[styles.spaceContainer, { marginLeft : props.index === 0 ? 5 : 10}, { marginRight : props.index === (props.numberOfBlogs-1) ? 10 : 0}]} >
