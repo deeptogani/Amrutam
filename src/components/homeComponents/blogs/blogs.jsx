@@ -13,7 +13,10 @@ export default Blogs = () => {
 
         return (
 
-            <View style={[styles.card, { marginLeft : index === 0 ? width*0.04 : 20 }]}>
+            <View style={[styles.card, 
+                        { marginLeft : index === 0 ? width*0.04 : 20 ,
+                          marginRight : index === blogsData.length - 1 ? width*0.04 : 0}
+                        ]}>
 
                 <View style={styles.textContainer}>
 

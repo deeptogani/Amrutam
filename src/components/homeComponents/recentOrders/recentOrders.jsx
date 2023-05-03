@@ -17,7 +17,10 @@ export default RecentOrders = () => {
 
         return (
 
-            <View style={[styles.card, { marginLeft : index === 0 ? width*0.04 : 20 }]}>
+            <View style={[styles.card, 
+                        { marginLeft : index === 0 ? width*0.04 : 20 },
+                        { marginRight : index === recentOrdersData.length-1 ? width*0.04 : 0 }
+                        ]}>
             
                 <Image 
                     source={item.image}

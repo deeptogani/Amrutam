@@ -94,11 +94,16 @@ export default HomeScreen = () => {
 
         await blogData.map(blog => {
             temp.push(blog['blog_title'])
+
+            //For Recent Blogs (Random Blog Being Added)
             tempBlogs.push(blog['articles'][1])
         })
 
         setBlogCategories(temp);
+
+        //By default set the first category of the blogs for the list
         setAllData(blogData[0]['articles'])
+
         setRecentBlogs(tempBlogs);
         setIsLoading(false);
 
@@ -125,6 +130,8 @@ export default HomeScreen = () => {
 
     const increaseBlogs = () => {
         if((allData.length - visibleItems) >= 5){
+
+            //If more than equal to 5 articles are availble
             setIsMore(true);
             setVisibleItems(visibleItems + 5)
         }else{
@@ -185,7 +192,6 @@ export default HomeScreen = () => {
                         <Category 
                             category={item} 
                             selectedCategory={category} 
-                            data={item.category} 
                             changeCategory={changeCategory}
                         />
 

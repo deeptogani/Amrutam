@@ -10,7 +10,7 @@ import Drawer from './src/navigation/drawerNavigation/drawerNavigation';
 
 const App = () => {
 
-//Stack Navigation
+  //Stack Navigation
 
   return (
 

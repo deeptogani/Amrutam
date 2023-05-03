@@ -121,7 +121,7 @@ export default TabNavigator = () => {
 
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={[styles.tab, isBulletin ? bottomBorderStyle : null ]} onPress={() => navigateScreen(4, navigation)}>
+                        <TouchableOpacity style={[styles.tab, isBulletin ? bottomBorderStyle : null ]} onPress={() => navigateScreen(4)}>
 
                             <View>
                                 <MaterialCommunityIcons name='flower-tulip-outline' color={isBulletin ? color.primary1 : color.secondary} size={ICON_SIZE} />

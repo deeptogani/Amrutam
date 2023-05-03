@@ -10,7 +10,10 @@ export default TopDoctor = () => {
 
         return (
 
-            <View style={[styles.card, { marginLeft : index === 0 ? width*0.04 : 20 }]}>
+            <View style={[styles.card, 
+                        { marginLeft : index === 0 ? width*0.04 : 20, 
+                          marginRight : index === (topDoctorsData.length - 1) ? width*0.04 : null }
+                        ]}>
 
                 <Image 
                     source={item.image}
